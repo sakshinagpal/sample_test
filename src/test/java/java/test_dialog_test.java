@@ -44,7 +44,7 @@ public class test_dialog_test {
   String assignment_name,question_number,assign_name;
   Integer num;
   DesiredCapabilities dc;
-  
+
   @Parameterized.Parameters
   public static Collection<Object[]> data() {
 	   return Arrays.asList(new Object[][]{{1},{2}});
@@ -63,19 +63,20 @@ public class test_dialog_test {
     driver.manage().window().maximize();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     System.out.println(InetAddress.getByName("127.0.0.0").isReachable(3000));
+    System.out.println(InetAddress.getByName("127.0.0.0").isReachable(3000));
   }
-  
- 
+
+
 @Test
 public void record_time() throws Exception {
-	
+
 	System.out.println("******************************");
 	System.out.println("Iteration "+num);
 	System.out.println("******************************");
 	WebDriverWait wait;
 	long start,finish,loadtime;
 	driver.get(baseUrl);
-	
+
 	driver.findElement(By.cssSelector("img[alt='Launch']")).click();
 	start = System.currentTimeMillis();
 	ArrayList<String> newTab = new ArrayList<String>(driver.getWindowHandles());
@@ -85,7 +86,7 @@ public void record_time() throws Exception {
     finish = System.currentTimeMillis();
     loadtime=(finish-start);
     System.out.println(dc.getBrowserName()+ " | " + "Component Load time"+": "+ loadtime);
-    
+
     Thread.sleep(2000);
     driver.findElement(By.id("viewallbutton")).click();
     driver.findElement(By.xpath("//div[@id='ViewAllDlg']/div[2]/table/tbody/tr[393]/td[2]")).click();
@@ -100,24 +101,24 @@ public void record_time() throws Exception {
 	question_number=driver.findElement(By.xpath("//span[@class='presentquestion']")).getText();
 	System.out.println(dc.getBrowserName()+ " | " + "Load time for Assignment Q: "+ question_number +" -"+ assign_name +": " + loadtime);
 	Thread.sleep(2000);
-	
+
 	for (int i=1;i<=10;i++)
     {
     	driver.findElement(By.id("fwdtaskbtn")).click();
     	start = System.currentTimeMillis();
     	wait = new WebDriverWait(driver, 60);// 1 minute
-    	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("LoadingImage")));		  
+    	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("LoadingImage")));
     	finish = System.currentTimeMillis();
     	loadtime=(finish-start);
     	assignment_name=driver.findElement(By.id("questionAndPoints")).getText();
     	assign_name=assignment_name.substring((assignment_name.indexOf(":")+1), (assignment_name.lastIndexOf(":")));
     	question_number=driver.findElement(By.xpath("//span[@class='presentquestion']")).getText();
        	System.out.println(dc.getBrowserName()+ " | " + "Load time for Assignment Q: "+ question_number +" -"+ assign_name +": " + loadtime);
-    	Thread.sleep(2000);   
+    	Thread.sleep(2000);
     }
-    	
+
 }
- 
+
 
   @After
   public void tearDown() throws Exception {
